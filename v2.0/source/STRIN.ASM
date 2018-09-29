@@ -1,3 +1,61 @@
+;  The top of this file no doubt is missing.  I'm taking a guess and based the top from Xenix
+;
+; strin file calls for MSDOS
+;
+
+INCLUDE DOSSEG.ASM
+
+IFNDEF  KANJI
+KANJI   EQU     0       ;FALSE
+ENDIF
+
+CODE    SEGMENT BYTE PUBLIC  'CODE'
+        ASSUME  SS:DOSGROUP,CS:DOSGROUP
+
+.xlist
+.xcref
+INCLUDE DOSSYM.ASM
+INCLUDE DEVSYM.ASM
+.cref
+.list
+
+TITLE   STRIN - String functions
+NAME    STRIN
+
+; Current errors, missing global vars?  procedures?
+; DOSSYM in Pass 2
+; 0020  A0 0000 U                        MOV     AL,[CARPOS]
+; E r r o r   ---        9:Symbol not defined
+; 0023  A2 0000 U                        MOV     [STARTPOS],AL   ;Remember position in raw buffer
+; E r r o r   ---        9:Symbol not defined
+; 0027  BF 0000 U                        MOV     DI,OFFSET DOSGROUP:INBUF        ;Build the new line here
+; E r r o r   ---        9:Symbol not defined
+; 002A  88 2E 0000 U                     MOV     [INSMODE],CH    ;Insert mode off
+; E r r o r   ---        9:Symbol not defined
+; 0040  3A 06; 0000 U                     CMP     AL,[ESCCHAR]
+; E r r o r   ---        9:Symbol not defined
+; 0056  3A 06 0000 U                     CMP     AL,CANCEL
+; E r r o r   ---        9:Symbol not defined
+; 0066  80 3E 0000 U 00                  CMP     BYTE PTR [INSMODE],0
+; E r r o r   ---        9:Symbol not defined
+; 0094  BE 0000 U                        MOV     SI,OFFSET DOSGROUP:INBUF
+; E r r o r   ---        9:Symbol not defined
+; 00B4  A0 0000 U                        MOV     AL,[STARTPOS]
+; E r r o r   ---        9:Symbol not defined
+; 00D2  80 3E 0000 U 00                  CMP     BYTE PTR [INSMODE],0
+; E r r o r   ---        9:Symbol not defined
+; 00FD  2A 1E 0000 U                     SUB     BL,[STARTPOS]
+; E r r o r   ---        9:Symbol not defined
+; 0126  A0 0000 U                        MOV     AL,[ESCCHAR]
+; E r r o r   ---        9:Symbol not defined
+; 0139  C6 06 0000 U 00                  MOV     BYTE PTR [INSMODE],0    ;All copies turn off insert mode
+; E r r o r   ---        9:Symbol not defined
+; 016B  3A 06 0000 U                     CMP     AL,[ESCCHAR]            ; did he type a function key?
+; E r r o r   ---        9:Symbol not defined
+; 01AC  F6 16 0000 U                     NOT     BYTE PTR [INSMODE]
+; E r r o r   ---        9:Symbol not defined
+
+;;;;;;;;;;;;;;;;;  Below this point is untouched.....
         procedure   $STD_CON_STRING_INPUT,NEAR   ;System call 10
 ASSUME  DS:NOTHING,ES:NOTHING
 
