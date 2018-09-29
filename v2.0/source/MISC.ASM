@@ -429,14 +429,14 @@ entry   RAWOUT
         PUSH    DS
         PUSH    SI
         LDS     SI,DWORD PTR [SI.fcb_FIRCLUS]   ; output to special?
-        TEST    BYTE PTR [SI+SDEVATT],ISSPEC
+;        TEST    BYTE PTR [SI+SDEVATT],ISSPEC
+        TEST    BYTE PTR [SI+SDEVATT],DEVID_SPECIAL ; (INT 29h CON flag)
         POP     SI
         POP     DS
         JZ      RAWNORM                         ; if not, do normally
         INT     int_fastcon                     ; quickly output the char
         JMP     SHORT RAWRET
 RAWNORM:
-
         CALL    RAWOUT3
 RAWRET: CLC
 RAWRET1:
@@ -645,4 +645,4 @@ $CREATE_PROCESS_DATA_BLOCK ENDP
 
  CODE   ENDS
         END
-                                                                            
+                                                                            

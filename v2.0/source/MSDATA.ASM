@@ -78,7 +78,7 @@ device_availability DB  0FFH
 
             I_AM    FirstArena,WORD         ; first free block found
             I_AM    BestArena,WORD          ; best free block found
-            I_AM    LastArena,WORD          ; last free block found
+	    I_AM    LastArena,WORD          ; last free block found
             I_AM    AllocMethod,BYTE        ; how to alloc first(best)last
             I_AM    arena_head,WORD
 

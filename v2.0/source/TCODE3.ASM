@@ -264,8 +264,7 @@ FORCOMLP:
         MOV     [SINGLECOM],0FF00H      ; Flag single command for
 NOFORP:
         CMP     [FORUFCB],1
-;this currently caues masm to go crazy
-;        retnz
+        retnz
         PUSH    ES
         POP     DS
 ASSUME  DS:RESGROUP
@@ -675,4 +674,5 @@ STRCOMP:
 
 TRANCODE        ENDS
         END
-                                                                                                                    
+                                                
+                                                                    
